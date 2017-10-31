@@ -13,5 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
         Log.i("asda", "2");
         Log.i("asda", "2");
+        Log.i("OCTAV MOLODETS", "2");
+
     }
 }
