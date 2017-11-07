@@ -4,6 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.example.octav.androidproject.model.Trip;
+
 import java.util.ArrayList;
 
 public class TripActivity extends AppCompatActivity {
@@ -32,11 +34,9 @@ public class TripActivity extends AppCompatActivity {
 //        endPointTextView = (TextView) findViewById(R.id.endPoint);
 
         Bundle bundle = getIntent().getExtras();
-        String title = bundle.getString("title");
-        Integer complexity = bundle.getInt("complexity");
-        ArrayList<String> stops = bundle.getStringArrayList("stops");
+        Trip trip = (Trip)bundle.getSerializable("trip");
 
-        titleTextView.setText(title);
+        titleTextView.setText(trip.getTitle());
 //        complexityTextView.setText(String.valueOf(complexity));
 //        startPointTextView.setText(stops.get(0));
 //        endPointTextView.setText(stops.get(stops.size() - 1));

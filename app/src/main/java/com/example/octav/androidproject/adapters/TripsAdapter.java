@@ -50,9 +50,8 @@ public class TripsAdapter extends ArrayAdapter<Trip> {
 
         viewHolder.title.setText(trip.getTitle());
         viewHolder.complexity.setText(String.valueOf(trip.getComplexity()));
-        Log.i("stops", trip.getStops().toString());
-        viewHolder.startPoint.setText(trip.getStops().get(0));
-        viewHolder.endPoint.setText(trip.getStops().get(trip.getStops().size() - 1));
+        if (trip.getStops().get(0) != null) viewHolder.startPoint.setText(trip.getStops().get(0));
+        if (trip.getStops().size() > 1) viewHolder.endPoint.setText(trip.getStops().get(trip.getStops().size() - 1));
 
 
         return convertView;

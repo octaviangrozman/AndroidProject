@@ -1,5 +1,6 @@
 package com.example.octav.androidproject.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -7,7 +8,10 @@ import java.util.ArrayList;
  * Created by lenovo on 11/7/2017.
  */
 
-public class Trip {
+public class Trip implements Serializable
+{
+
+    private String key;
 
     private String title;
 
@@ -21,7 +25,6 @@ public class Trip {
 
     //CONSTRUCTORS
     public Trip() {
-
     }
 
     public Trip(String title) {
@@ -29,6 +32,10 @@ public class Trip {
     }
 
     //GETTERS
+    public String getKey() {
+        return key;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -50,6 +57,11 @@ public class Trip {
     }
 
     //SETTER WITH BUILDING FUNCTIONALITY
+    public Trip setKey(String key) {
+        this.key = key;
+        return this;
+    }
+
     public Trip setTitle(String title) {
         this.title = title;
         return this;
