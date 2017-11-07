@@ -18,7 +18,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title"
+        android:hint="Title"
         android:id="@+id/title"/>
 
     <Spinner
@@ -27,16 +27,37 @@
         android:prompt="@string/complexity_prompt"
         android:entries="@array/complexity_levels"
         android:id="@+id/complexity"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Hours"
+            android:inputType="number"
+            android:id="@+id/hours"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Minutes"
+            android:id="@+id/minutes"/>
+    </LinearLayout>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Duration"
-        android:inputType="time"
-        android:id="@+id/duration"/>
+        android:hint="Stops"
+        android:inputType="text"
+        android:id="@+id/stops"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Description"
+        android:hint="Description"
         android:inputType="textMultiLine"
         android:id="@+id/description"
         android:layout_marginBottom="30dp"/>
