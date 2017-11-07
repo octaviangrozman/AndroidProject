@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Bike Trips</string>
     <string name="add_trip_label">Add a new trip</string>
+    <string name="complexity_prompt">Choose complexity level</string>
+    <string-array name="complexity_levels">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>
