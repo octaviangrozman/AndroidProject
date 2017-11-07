@@ -12,7 +12,6 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textView;
     FirebaseDatabase db;
 
     @Override
@@ -21,22 +20,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         db = FirebaseDatabase.getInstance();
-        textView = (TextView) findViewById(R.id.title);
-        readData();
-    }
 
-    public void readData() {
-        db.getReference("fake").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String fakeData = dataSnapshot.getValue(String.class);
-                textView.setText(fakeData);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 }
