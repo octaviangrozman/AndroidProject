@@ -1,8 +1,10 @@
 package com.example.octav.androidproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,5 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
         db = FirebaseDatabase.getInstance();
 
+    }
+
+    public void goToAddTripActivity(View view) {
+        Intent intent = new Intent(this, AddTripActivity.class);
+        startActivity(intent);
     }
 }
