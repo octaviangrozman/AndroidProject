@@ -9,14 +9,19 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.octav.androidproject.adapters.TripsAdapter;
+import com.example.octav.androidproject.model.MyLatLng;
+import com.example.octav.androidproject.model.Route;
 import com.example.octav.androidproject.model.Trip;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +62,13 @@ public class MainActivity extends AppCompatActivity {
                             .setDescription(tripSnapshot.child("description").getValue(String.class))
                             .setDuration(tripSnapshot.child("duration").getValue(Integer.class))
                             .setStops((ArrayList<String>) (tripSnapshot.child("stops").getValue()));
+
+                    GenericTypeIndicator<ArrayList<MyLatLng>> t = new GenericTypeIndicator<ArrayList<MyLatLng>>(){};
+                    GenericTypeIndicator<ArrayList<ArrayList<MyLatLng>>> pointsType = new GenericTypeIndicator<ArrayList<ArrayList<MyLatLng>>>(){};
+                    ArrayList<MyLatLng> markers = tripSnapshot.child("route").child("markers").getValue(t);
+                    ArrayList<ArrayList<MyLatLng>> points = (tripSnapshot.child("route").child("points").getValue(pointsType));
+                    trip.setRoute(new Route(points, markers));
+
                     trips.add(trip);
                 }
                 tripsList.setAdapter(new TripsAdapter(MainActivity.this, trips));
