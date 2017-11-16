@@ -23,6 +23,8 @@ public class Trip implements Serializable
 
     private int duration;
 
+    private Route route;
+
     //CONSTRUCTORS
     public Trip() {
     }
@@ -52,6 +54,10 @@ public class Trip implements Serializable
         return stops;
     }
 
+    public Route getRoute() {
+        return route;
+    }
+
     public int getDuration() {
         return duration;
     }
@@ -64,6 +70,11 @@ public class Trip implements Serializable
 
     public Trip setTitle(String title) {
         this.title = title;
+        return this;
+    }
+
+    public Trip setRoute(Route route) {
+        this.route = route;
         return this;
     }
 
