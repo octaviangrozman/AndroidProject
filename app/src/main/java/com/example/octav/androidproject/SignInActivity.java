@@ -1,6 +1,7 @@
 package com.example.octav.androidproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -85,6 +86,8 @@ public class SignInActivity extends AppCompatActivity {
     private void updateUi(FirebaseUser user) {
         mEmailField.setText("");
         mPasswordField.setText("");
+
+        startActivity(new Intent(SignInActivity.this, MainActivity.class));
     }
 
     @Override

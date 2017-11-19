@@ -6,8 +6,20 @@
     android:layout_height="match_parent"
     tools:context="com.example.octav.androidproject.MainActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/app_toolbar"
+        android:background="#1e7570"
+        app:titleTextColor="#fff"
+        android:elevation="4dp"
+        android:theme="@style/AlertDialog.AppCompat.Light">
+
+    </android.support.v7.widget.Toolbar>
+
     <FrameLayout
         android:id="@+id/fragment_container"
+        android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />
