@@ -19,8 +19,6 @@ public class Trip implements Serializable
 
     private String description;
 
-    private ArrayList<String> stops;
-
     private int duration;
 
     private Route route;
@@ -48,10 +46,6 @@ public class Trip implements Serializable
 
     public String getDescription() {
         return description;
-    }
-
-    public ArrayList<String> getStops() {
-        return stops;
     }
 
     public Route getRoute() {
@@ -88,11 +82,6 @@ public class Trip implements Serializable
         return this;
     }
 
-    public Trip setStops(ArrayList<String> stops) {
-        this.stops = stops;
-        return this;
-    }
-
     public Trip setDuration(int duration) {
         this.duration = duration;
         return this;
@@ -115,7 +104,6 @@ public class Trip implements Serializable
                 .append("Title: " + this.title + "\n\t")
                  .append("Complexity: " + this.complexity+ "\n\t")
                   .append("Duration: " + this.duration + "minutes\n\t")
-                   .append("Stops: " + this.stops.toString() + "\n\t")
                     .append("Description: " + this.description + "\n").toString();
     }
 }

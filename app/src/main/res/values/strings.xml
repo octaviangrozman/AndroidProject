@@ -2,6 +2,14 @@
     <string name="app_name">Bike Trips</string>
     <string name="add_trip_label">Add a new trip</string>
     <string name="complexity_prompt">Choose complexity level</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search for trips...</string>
+    <string name="text_trips">Trips</string>
+    <string name="text_search">Search for trips</string>
+    <string name="text_profile">Your Profile</string>
+    <string name="text_create_trip">Create a Trip</string>
+    <string name="search_activity_label">Search</string>
+    <string name="profile_activity_label">Profile</string>
     <string-array name="complexity_levels">
         <item>1</item>
         <item>2</item>
@@ -10,4 +18,8 @@
         <item>5</item>
     </string-array>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

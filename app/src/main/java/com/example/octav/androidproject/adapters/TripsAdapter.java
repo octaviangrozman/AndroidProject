@@ -20,13 +20,12 @@ import java.util.ArrayList;
 public class TripsAdapter extends ArrayAdapter<Trip> {
     public TripsAdapter(Context context, ArrayList<Trip> data) {
         super(context, 0, data);
+        Log.i("as", "created");
     }
 
     public static class ViewHolder {
         TextView title;
         TextView complexity;
-        TextView startPoint;
-        TextView endPoint;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -38,8 +37,6 @@ public class TripsAdapter extends ArrayAdapter<Trip> {
 
             viewHolder.title = (TextView) convertView.findViewById(R.id.tripTitle);
             viewHolder.complexity = (TextView) convertView.findViewById(R.id.tripComplexity);
-            viewHolder.startPoint = (TextView) convertView.findViewById(R.id.tripStartPoint);
-            viewHolder.endPoint = (TextView) convertView.findViewById(R.id.tripEndPoint);
 
             convertView.setTag(viewHolder);
         } else {
@@ -50,9 +47,6 @@ public class TripsAdapter extends ArrayAdapter<Trip> {
 
         viewHolder.title.setText(trip.getTitle());
         viewHolder.complexity.setText(String.valueOf(trip.getComplexity()));
-        if (trip.getStops().get(0) != null) viewHolder.startPoint.setText(trip.getStops().get(0));
-        if (trip.getStops().size() > 1) viewHolder.endPoint.setText(trip.getStops().get(trip.getStops().size() - 1));
-
 
         return convertView;
     }

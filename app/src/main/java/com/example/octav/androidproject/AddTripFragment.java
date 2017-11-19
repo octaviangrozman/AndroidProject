@@ -1,12 +1,16 @@
 package com.example.octav.androidproject;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -40,17 +44,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static android.R.attr.duration;
 import static java.lang.Integer.parseInt;
 
-public class AddTripActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+public class AddTripFragment extends Fragment implements OnMapReadyCallback {
 
     private EditText mTitle;
     private Spinner mComplexity;
     private EditText mHours;
     private EditText mMinutes;
     private EditText mDescription;
-    private EditText mStops;
     private Button createTripButton;
     private Button routeBtn;
     private Button clearRouteBtn;
@@ -62,28 +65,54 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
     private ArrayList<LatLng> MarkerPoints = new ArrayList<>();
     private ArrayList<ArrayList<LatLng>> points = new ArrayList<>();
 
+    private OnFragmentInteractionListener mListener;
+
+    public AddTripFragment() {
+    }
+
+    public static AddTripFragment newInstance() {
+        AddTripFragment fragment = new AddTripFragment();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_trip);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
 
         db = FirebaseDatabase.getInstance();
         tripRef = db.getReference("trips");
+        getActivity().setTitle(R.string.text_create_trip);
+    }
 
-        mTitle = (EditText) findViewById(R.id.title);
-        mComplexity = (Spinner) findViewById(R.id.complexity);
-        mHours = (EditText) findViewById(R.id.hours);
-        mMinutes = (EditText) findViewById(R.id.minutes);
-        mDescription = (EditText) findViewById(R.id.description);
-        mStops = (EditText) findViewById(R.id.stops);
-        createTripButton = (Button) findViewById(R.id.createTrip);
-        routeBtn = (Button) findViewById(R.id.route);
-        clearRouteBtn = (Button) findViewById(R.id.clear);
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle(R.string.text_create_trip);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_add_trip, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        mTitle = (EditText) getView().findViewById(R.id.title);
+        mComplexity = (Spinner) getView().findViewById(R.id.complexity);
+        mHours = (EditText) getView().findViewById(R.id.hours);
+        mMinutes = (EditText) getView().findViewById(R.id.minutes);
+        mDescription = (EditText) getView().findViewById(R.id.description);
+        createTripButton = (Button) getView().findViewById(R.id.createTrip);
+        routeBtn = (Button) getView().findViewById(R.id.route);
+        clearRouteBtn = (Button) getView().findViewById(R.id.clear);
 
         createTripButton.setOnClickListener(new View.OnClickListener() {
 
@@ -97,7 +126,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
                 Route route;
 
                 ArrayList<ArrayList<MyLatLng>> myPoints = new ArrayList<ArrayList<MyLatLng>>();
-                for(ArrayList<LatLng> listOfPoints: AddTripActivity.this.points){
+                for(ArrayList<LatLng> listOfPoints: points){
                     myPoints.add(MyLatLng.convert(listOfPoints));
                 }
                 route = new Route(myPoints, MyLatLng.convert(MarkerPoints));
@@ -116,18 +145,16 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
                                 parseInt(mHours.getText().toString()) * 60;
                         duration = hours + minutes;
                         if (duration == 0) {
-                            Toast.makeText(AddTripActivity.this, "Duration was not specified", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), "Duration was not specified", Toast.LENGTH_LONG).show();
                             return;
                         }
                     } catch (NumberFormatException e) {
-                        Toast.makeText(AddTripActivity.this, "Hours or Minutes have wrong format", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(), "Hours or Minutes have wrong format", Toast.LENGTH_LONG).show();
                         return;
                     }
                     complexity = mComplexity.getSelectedItem().toString();
-                    String[] stopsArray = mStops.getText().toString().split(",");
-                    stops = new ArrayList<>(Arrays.asList(stopsArray));
                 } catch (NullPointerException e) {
-                    Toast.makeText(AddTripActivity.this, "Some field are empty", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Some field are empty", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -135,11 +162,10 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
                         .setTitle(title)
                         .setDescription(description)
                         .setDuration(duration)
-                        .setStops(stops)
                         .setComplexity(parseInt(complexity))
                         .setRoute(route);
 
-                Toast.makeText(AddTripActivity.this, "New trip created!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "New trip created!", Toast.LENGTH_LONG).show();
 
                 tripRef.push().setValue(trip);
 
@@ -175,16 +201,6 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
     }
-
-    private void clearInputFields() {
-        mTitle.setText("");
-        mComplexity.setSelection(0);
-        mHours.setText("");
-        mMinutes.setText("");
-        mDescription.setText("");
-        mStops.setText("");
-    }
-
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
@@ -394,12 +410,12 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         // Executes in UI thread, after the parsing process
         @Override
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
-            ArrayList<LatLng> points;
+            ArrayList<LatLng> _points;
             PolylineOptions lineOptions = null;
 
             // Traversing through all the routes
             for (int i = 0; i < result.size(); i++) {
-                points = new ArrayList<>();
+                _points = new ArrayList<>();
                 lineOptions = new PolylineOptions();
 
                 // Fetching i-th route
@@ -413,12 +429,12 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
                     double lng = Double.parseDouble(point.get("lng"));
                     LatLng position = new LatLng(lat, lng);
 
-                    points.add(position);
+                    _points.add(position);
                 }
 
                 // Adding all the points in the route to LineOptions
-                AddTripActivity.this.points.add(points);
-                lineOptions.addAll(points);
+                points.add(_points);
+                lineOptions.addAll(_points);
                 lineOptions.width(10);
                 lineOptions.color(Color.RED);
 
@@ -435,4 +451,31 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
+    private void clearInputFields(){
+        mTitle.setText("");
+        mComplexity.setSelection(0);
+        mHours.setText("");
+        mMinutes.setText("");
+        mDescription.setText("");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+    }
 }

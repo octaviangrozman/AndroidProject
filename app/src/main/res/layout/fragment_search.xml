@@ -1,0 +1,53 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.octav.androidproject.SearchFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:drawableRight="@drawable/ic_search_black_24dp"
+            android:textSize="20dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:hint="@string/text_search"
+            android:inputType="textShortMessage"/>
+
+        <TextView
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Searching..."
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:text="No trips found. Try again."
+            android:id="@+id/noDataText"
+            android:visibility="gone"/>
+
+        <ListView
+            android:id="@+id/tripsList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="0dp"
+            android:layout_marginTop="0dp"
+            android:paddingTop="0dp" />
+
+    </LinearLayout>
+
+</FrameLayout>
