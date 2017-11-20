@@ -12,10 +12,32 @@
         android:layout_height="match_parent"
         tools:context="com.example.octav.androidproject.MainActivity">
 
+        <TextView
+            android:id="@+id/loader"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="Loading trips..."
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:text="No trips found. Try again."
+            android:id="@+id/noDataText"
+            android:visibility="gone"/>
+
         <ListView
             android:id="@+id/tripsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="#666"
+            android:dividerHeight="1dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"

@@ -26,7 +26,7 @@
             <View
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="#333" />
+                android:background="#666" />
 
             <TextView
                 android:id="@+id/tripComplexity"
@@ -39,10 +39,6 @@
                 android:text="4"
                 android:textAlignment="center"
                 android:textSize="18dp" />
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="#333" />
         </LinearLayout>
     </LinearLayout>
 

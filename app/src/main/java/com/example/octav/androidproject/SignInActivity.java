@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import org.w3c.dom.Text;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -65,19 +68,24 @@ public class SignInActivity extends AppCompatActivity {
                 String email = String.valueOf(mEmailField.getText());
                 String password = String.valueOf(mPasswordField.getText());
 
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                Log.d(AUTH_TAG, "signInWithEmail: onComplete:" + task.isSuccessful());
+                if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
+                    Toast.makeText(SignInActivity.this, "Email and password should not be empty",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    mAuth.signInWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(SignInActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    Log.d(AUTH_TAG, "signInWithEmail: onComplete:" + task.isSuccessful());
 
-                                if (!task.isSuccessful()) {
-                                    Log.w(AUTH_TAG, "signInWithEmail:failed", task.getException());
-                                    Toast.makeText(SignInActivity.this, "Sign in failed",
-                                            Toast.LENGTH_LONG).show();
+                                    if (!task.isSuccessful()) {
+                                        Log.w(AUTH_TAG, "signInWithEmail:failed", task.getException());
+                                        Toast.makeText(SignInActivity.this, "Sign in failed",
+                                                Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                }
             }
         });
 

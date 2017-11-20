@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.octav.androidproject.adapters.TripsAdapter;
 import com.example.octav.androidproject.model.MyLatLng;
@@ -32,8 +34,10 @@ public class HomeFragment extends Fragment {
     // Fragments
     FragmentTransaction ft;
     // UI
-    ListView tripsList;
+    ListView tripsListView;
     FloatingActionButton addTripButton;
+    private TextView loader;
+    private TextView noDataText;
 
     private OnFragmentInteractionListener mListener;
 
@@ -85,8 +89,10 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        tripsList = (ListView) getView().findViewById(R.id.tripsList);
-        tripsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        tripsListView = (ListView) getView().findViewById(R.id.tripsList);
+        loader = (TextView) getView().findViewById(R.id.loader);
+        noDataText = (TextView) getView().findViewById(R.id.noDataText);
+        tripsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Trip trip = (Trip) parent.getItemAtPosition(position);
@@ -110,10 +116,13 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchTrips() {
+        tripsListView.setVisibility(View.GONE);
+        noDataText.setVisibility(View.GONE);
+        setLoading(true);
         ValueEventListener tripsListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Trip> trips = new ArrayList<>();
+                ArrayList<Trip> tripsArray = new ArrayList<>();
                 for (DataSnapshot tripSnapshot: dataSnapshot.getChildren()) {
                     Trip trip = new Trip(tripSnapshot.child("title").getValue(String.class))
                             .setComplexity(tripSnapshot.child("complexity").getValue(Integer.class))
@@ -126,11 +135,18 @@ public class HomeFragment extends Fragment {
                     ArrayList<ArrayList<MyLatLng>> points = (tripSnapshot.child("route").child("points").getValue(pointsType));
                     trip.setRoute(new Route(points, markers));
 
-                    trips.add(trip);
+                    tripsArray.add(trip);
                 }
-                TripsAdapter tripsAdapter = new TripsAdapter(getContext(), trips);
-                tripsAdapter.notifyDataSetChanged();
-                tripsList.setAdapter(tripsAdapter);
+                setLoading(false);
+                if (tripsArray.size() > 0) {
+                    TripsAdapter tripsAdapter = new TripsAdapter(getContext(), tripsArray);
+                    tripsAdapter.notifyDataSetChanged();
+                    tripsListView.setAdapter(tripsAdapter);
+                    tripsListView.setVisibility(View.VISIBLE);
+                } else {
+                    Toast.makeText(getContext(), "No trips found", Toast.LENGTH_LONG).show();
+                    noDataText.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -138,7 +154,12 @@ public class HomeFragment extends Fragment {
                 Log.w("ERROR", "fetch Trips :onCancelled", databaseError.toException());
             }
         };
+        Log.i("as", "attached listener");
         db.getReference("trips").addListenerForSingleValueEvent(tripsListener);
+    }
+
+    public void setLoading(boolean _loading) {
+        loader.setVisibility(_loading ? View.VISIBLE : View.GONE);
     }
 
     public interface OnFragmentInteractionListener {

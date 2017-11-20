@@ -18,7 +18,7 @@
             android:paddingRight="20dp"
             android:paddingLeft="20dp"
             android:hint="@string/text_search"
-            android:inputType="textShortMessage"/>
+            android:inputType="text" />
 
         <TextView
             android:id="@+id/loader"
