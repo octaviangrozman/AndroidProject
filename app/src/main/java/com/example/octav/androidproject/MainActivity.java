@@ -18,7 +18,8 @@ public class MainActivity extends BaseActivity implements
         HomeFragment.OnFragmentInteractionListener,
         TripFragment.OnFragmentInteractionListener,
         AddTripFragment.OnFragmentInteractionListener,
-        SearchFragment.OnFragmentInteractionListener {
+        SearchFragment.OnFragmentInteractionListener,
+        MyTripsFragment.OnFragmentInteractionListener{
 
     // database
     FirebaseDatabase db;
@@ -101,6 +102,14 @@ public class MainActivity extends BaseActivity implements
                         return false;
                     }
                 });
+    }
+
+    @Override
+    public void goToEditTripFragment(Trip trip) {
+        MyTripsFragment myTripsFragment = MyTripsFragment.newInstance();
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, myTripsFragment);
+        ft.addToBackStack("myTrips").commit();
     }
 
     @Override
