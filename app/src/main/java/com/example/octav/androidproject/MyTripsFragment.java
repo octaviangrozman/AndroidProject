@@ -21,6 +21,7 @@ import com.example.octav.androidproject.adapters.TripsAdapter;
 import com.example.octav.androidproject.model.MyLatLng;
 import com.example.octav.androidproject.model.Route;
 import com.example.octav.androidproject.model.Trip;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -51,6 +52,7 @@ public class MyTripsFragment extends Fragment {
     private String mParam2;
 
     private FirebaseDatabase db;
+    private FirebaseAuth mAuth;
 
     private OnFragmentInteractionListener mListener;
     private ListView tripsListView;
@@ -89,6 +91,7 @@ public class MyTripsFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         db = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         getActivity().setTitle("My Trips");
 
     }
@@ -190,6 +193,7 @@ public class MyTripsFragment extends Fragment {
                     ArrayList<ArrayList<MyLatLng>> points = (tripSnapshot.child("route").child("points").getValue(pointsType));
                     trip.setRoute(new Route(points, markers));
 
+                    //if(mAuth.getCurrentUser().getUid().equals(tripSnapshot.child("")))
                     tripsArray.add(trip);
                 }
                 setLoading(false);
@@ -210,7 +214,7 @@ public class MyTripsFragment extends Fragment {
             }
         };
         Log.i("as", "attached listener");
-        db.getReference("trips").addListenerForSingleValueEvent(tripsListener);
+        db.getReference("trips").orderByChild("userUid").equalTo(mAuth.getCurrentUser().getUid()).addListenerForSingleValueEvent(tripsListener);
     }
 
     public void setLoading(boolean _loading) {
