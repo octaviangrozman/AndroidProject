@@ -8,9 +8,14 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.example.octav.androidproject.adapters.MyTripsAdapter;
 import com.example.octav.androidproject.model.Trip;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,7 +24,9 @@ public class MainActivity extends BaseActivity implements
         TripFragment.OnFragmentInteractionListener,
         AddTripFragment.OnFragmentInteractionListener,
         SearchFragment.OnFragmentInteractionListener,
-        MyTripsFragment.OnFragmentInteractionListener{
+        MyTripsFragment.OnFragmentInteractionListener,
+        EditTripFragment.OnFragmentInteractionListener,
+        MyTripsAdapter.OnAdapterInteractionListener {
 
     // database
     FirebaseDatabase db;
@@ -105,19 +112,29 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void goToEditTripFragment(Trip trip) {
-        MyTripsFragment myTripsFragment = MyTripsFragment.newInstance();
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, myTripsFragment);
-        ft.addToBackStack("myTrips").commit();
-    }
-
-    @Override
     public void goToAddTripFragment() {
         AddTripFragment addTripFragment = AddTripFragment.newInstance();
         ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, addTripFragment);
         ft.addToBackStack("addTrip").commit();
+    }
+
+    @Override
+    public void goToEditTripFragment(Trip trip) {
+        EditTripFragment editTripFragment = EditTripFragment.newInstance(trip);
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, editTripFragment);
+        ft.addToBackStack("editTrip").commit();
+    }
+
+    @Override
+    public void deleteTrip(String tripId) {
+        db.getReference("trips").child(tripId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(MainActivity.this, "Your trip has been successfully deleted!", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -127,4 +144,5 @@ public class MainActivity extends BaseActivity implements
         ft.replace(R.id.fragment_container, tripFragment);
         ft.addToBackStack("trip").commit();
     }
+
 }

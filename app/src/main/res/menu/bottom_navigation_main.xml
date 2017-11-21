@@ -4,25 +4,22 @@
     <item
         android:id="@+id/action_trips"
         android:enabled="true"
-        android:icon="@drawable/ic_directions_bike_black_24dp"
-        android:title="@string/text_trips"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/text_home"
+        app:showAsAction="ifRoom|withText"/>
     <item
         android:id="@+id/action_my_trips"
-        android:enabled="true"
         android:icon="@drawable/ic_directions_bike_black_24dp"
         android:title="@string/text_my_trips"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_search"
-        android:enabled="true"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/text_search"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_profile"
-        android:enabled="true"
         android:icon="@drawable/ic_account_circle_black_24dp"
         android:title="@string/text_profile"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom|withText" />
 </menu>

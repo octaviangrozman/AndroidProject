@@ -5,10 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.octav.androidproject.MyTripsFragment;
 import com.example.octav.androidproject.R;
 import com.example.octav.androidproject.model.Trip;
 
@@ -20,10 +22,18 @@ import java.util.ArrayList;
 
 public class MyTripsAdapter extends ArrayAdapter<Trip> {
 
+    private OnAdapterInteractionListener mListener;
+
     public MyTripsAdapter(Context context, ArrayList<Trip> data) {
-            super(context, 0, data);
-            Log.i("as", "created");
-            }
+        super(context, 0, data);
+
+        if (context instanceof OnAdapterInteractionListener) {
+            mListener = (OnAdapterInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnAdapterInteractionListener");
+        }
+    }
 
     public static class ViewHolder {
         TextView title;
@@ -49,11 +59,28 @@ public class MyTripsAdapter extends ArrayAdapter<Trip> {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        Trip trip = getItem(position);
+        final Trip trip = getItem(position);
 
         viewHolder.title.setText(trip.getTitle());
-        //viewHolder.complexity.setText(String.valueOf(trip.getComplexity()));
+        viewHolder.editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.goToEditTripFragment(trip);
+            }
+        });
+        viewHolder.deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.deleteTrip(trip.getKey());
+                MyTripsAdapter.this.remove(trip);
+            }
+        });
 
         return convertView;
+    }
+
+    public interface OnAdapterInteractionListener {
+        void goToEditTripFragment(Trip trip);
+        void deleteTrip(String tripId);
     }
 }

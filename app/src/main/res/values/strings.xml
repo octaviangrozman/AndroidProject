@@ -5,11 +5,13 @@
     <string name="search_title">Search</string>
     <string name="search_hint">Search</string>
     <string name="text_trips">Trips</string>
+    <string name="text_home">Home</string>
     <string name="text_my_trips">My Trips</string>
     <string name="text_search">Search for trips</string>
     <string name="text_profile">Your Profile</string>
     <string name="text_create_trip">Create a Trip</string>
     <string name="text_edit_trip_title">Edit your trip</string>
+    <string name="text_update_trip_button">Update</string>
     <string name="search_activity_label">Search</string>
     <string name="profile_activity_label">Profile</string>
     <string-array name="complexity_levels">

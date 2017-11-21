@@ -112,10 +112,20 @@ public class MyTripsFragment extends Fragment {
         tripsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Trip trip = (Trip) parent.getItemAtPosition(position);
+                final Trip trip = (Trip) parent.getItemAtPosition(position);
+                view.findViewById(R.id.edit);
+                editBtn = view.findViewById(R.id.edit);
+                deleteBtn = view.findViewById(R.id.delete);
+                editBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.goToEditTripFragment(trip);
+                    }
+                });
                 mListener.goToTripFragment(trip);
             }
         });
+
 
 //        editBtn.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -148,19 +158,7 @@ public class MyTripsFragment extends Fragment {
 
     }
 
-    public void editBtnClickHandler(View view){
-        View parentRow = (View) view.getParent();
-        ListView listView = (ListView) parentRow.getParent();
-        final int position = listView.getPositionForView(parentRow);
-        mListener.goToEditTripFragment((Trip)listView.getAdapter().getItem(position));
-    }
 
-    public void deleteBtnClickHandler(View view){
-        View parentRow = (View) view.getParent();
-        ListView listView = (ListView) parentRow.getParent();
-        final int position = listView.getPositionForView(parentRow);
-        deleteTrip((Trip)listView.getAdapter().getItem(position));
-    }
 
     private void deleteTrip(Trip item) {
     }
@@ -181,6 +179,7 @@ public class MyTripsFragment extends Fragment {
                 ArrayList<Trip> tripsArray = new ArrayList<>();
                 for (DataSnapshot tripSnapshot: dataSnapshot.getChildren()) {
                     Trip trip = new Trip(tripSnapshot.child("title").getValue(String.class))
+                            .setKey(tripSnapshot.getKey())
                             .setComplexity(tripSnapshot.child("complexity").getValue(Integer.class))
                             .setDescription(tripSnapshot.child("description").getValue(String.class))
                             .setDuration(tripSnapshot.child("duration").getValue(Integer.class));
@@ -253,7 +252,6 @@ public class MyTripsFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void goToEditTripFragment(Trip trip);
         void goToAddTripFragment();
         void goToTripFragment(Trip trip);

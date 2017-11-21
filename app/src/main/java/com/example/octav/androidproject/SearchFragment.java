@@ -167,6 +167,7 @@ public class SearchFragment extends Fragment {
                 ArrayList<Trip> tripsArray = new ArrayList<>();
                 for (DataSnapshot tripSnapshot: dataSnapshot.getChildren()) {
                     Trip trip = new Trip(tripSnapshot.child("title").getValue(String.class))
+                            .setKey(tripSnapshot.getKey())
                             .setComplexity(tripSnapshot.child("complexity").getValue(Integer.class))
                             .setDescription(tripSnapshot.child("description").getValue(String.class))
                             .setDuration(tripSnapshot.child("duration").getValue(Integer.class));
