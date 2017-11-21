@@ -8,6 +8,12 @@
         android:title="@string/text_trips"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/action_my_trips"
+        android:enabled="true"
+        android:icon="@drawable/ic_directions_bike_black_24dp"
+        android:title="@string/text_my_trips"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_search"
         android:enabled="true"
         android:icon="@drawable/ic_search_black_24dp"

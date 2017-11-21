@@ -3,11 +3,13 @@
     <string name="add_trip_label">Add a new trip</string>
     <string name="complexity_prompt">Choose complexity level</string>
     <string name="search_title">Search</string>
-    <string name="search_hint">Search for trips...</string>
+    <string name="search_hint">Search</string>
     <string name="text_trips">Trips</string>
+    <string name="text_my_trips">My Trips</string>
     <string name="text_search">Search for trips</string>
     <string name="text_profile">Your Profile</string>
     <string name="text_create_trip">Create a Trip</string>
+    <string name="text_edit_trip_title">Edit your trip</string>
     <string name="search_activity_label">Search</string>
     <string name="profile_activity_label">Profile</string>
     <string-array name="complexity_levels">

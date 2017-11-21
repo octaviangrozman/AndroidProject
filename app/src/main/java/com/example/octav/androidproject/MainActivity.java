@@ -77,6 +77,13 @@ public class MainActivity extends BaseActivity implements
                                 ft.addToBackStack("home").commit();
                                 return true;
 
+                            case R.id.action_my_trips:
+                                MyTripsFragment myTripsFragment = new MyTripsFragment();
+                                ft = getSupportFragmentManager().beginTransaction();
+                                ft.replace(R.id.fragment_container, myTripsFragment);
+                                ft.addToBackStack("myTrips").commit();
+                                return true;
+
                             case R.id.action_search:
                                 SearchFragment searchFragment = new SearchFragment();
                                 ft = getSupportFragmentManager().beginTransaction();
