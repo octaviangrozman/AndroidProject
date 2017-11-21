@@ -13,6 +13,8 @@ public class Trip implements Serializable
 
     private String key;
 
+    private String userUid;
+
     private String title;
 
     private int complexity;
@@ -105,5 +107,14 @@ public class Trip implements Serializable
                  .append("Complexity: " + this.complexity+ "\n\t")
                   .append("Duration: " + this.duration + "minutes\n\t")
                     .append("Description: " + this.description + "\n").toString();
+    }
+
+    public String getUserUid() {
+        return userUid;
+    }
+
+    public Trip setUserUid(String userUid) {
+        this.userUid = userUid;
+        return this;
     }
 }

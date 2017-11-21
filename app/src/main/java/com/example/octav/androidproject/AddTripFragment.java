@@ -2,7 +2,6 @@ package com.example.octav.androidproject;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +27,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -59,6 +59,7 @@ public class AddTripFragment extends Fragment implements OnMapReadyCallback {
     private Button clearRouteBtn;
 
     private FirebaseDatabase db;
+    private FirebaseAuth mAuth;
     private DatabaseReference tripRef;
 
     private GoogleMap mMap;
@@ -80,6 +81,7 @@ public class AddTripFragment extends Fragment implements OnMapReadyCallback {
         super.onCreate(savedInstanceState);
 
         db = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         tripRef = db.getReference("trips");
         getActivity().setTitle(R.string.text_create_trip);
     }
@@ -125,6 +127,9 @@ public class AddTripFragment extends Fragment implements OnMapReadyCallback {
                 ArrayList<String> stops;
                 Route route;
 
+                String userUid = mAuth.getCurrentUser().getUid();
+                Log.i("id", userUid);
+
                 ArrayList<ArrayList<MyLatLng>> myPoints = new ArrayList<ArrayList<MyLatLng>>();
                 for(ArrayList<LatLng> listOfPoints: points){
                     myPoints.add(MyLatLng.convert(listOfPoints));
@@ -159,6 +164,7 @@ public class AddTripFragment extends Fragment implements OnMapReadyCallback {
                 }
 
                 Trip trip = new Trip()
+                        .setUserUid(userUid)
                         .setTitle(title)
                         .setDescription(description)
                         .setDuration(duration)
