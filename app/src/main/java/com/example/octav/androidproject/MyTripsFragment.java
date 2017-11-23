@@ -1,5 +1,6 @@
 package com.example.octav.androidproject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -47,9 +48,7 @@ public class MyTripsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Activity activity;
 
     private FirebaseDatabase db;
     private FirebaseAuth mAuth;
@@ -86,10 +85,6 @@ public class MyTripsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         db = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
         getActivity().setTitle("My Trips");
@@ -100,7 +95,7 @@ public class MyTripsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_my_trips, container, false);
     }
 
     @Override
@@ -129,27 +124,6 @@ public class MyTripsFragment extends Fragment {
             }
         });
 
-
-//        editBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                View parentRow = (View) v.getParent();
-//                ListView listView = (ListView) parentRow.getParent();
-//                final int position = listView.getPositionForView(parentRow);
-//                mListener.goToEditTripFragment((Trip)listView.getAdapter().getItem(position));
-//            }
-//        });
-//
-//        deleteBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                View parentRow = (View) v.getParent();
-//                ListView listView = (ListView) parentRow.getParent();
-//                final int position = listView.getPositionForView(parentRow);
-//                deleteTrip((Trip)listView.getAdapter().getItem(position));
-//            }
-//        });
-
         addTripButton = (FloatingActionButton) getView().findViewById(R.id.addTripButton);
         addTripButton.setOnClickListener(new View.OnClickListener() {
 
@@ -161,15 +135,13 @@ public class MyTripsFragment extends Fragment {
 
     }
 
-
-
-    private void deleteTrip(Trip item) {
-    }
-
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fetchTrips();
+        if(getActivity() != null){
+            this.activity = getActivity();
+            fetchTrips();
+        }
     }
 
     public void fetchTrips() {
@@ -198,7 +170,7 @@ public class MyTripsFragment extends Fragment {
                 }
                 setLoading(false);
                 if (tripsArray.size() > 0) {
-                    MyTripsAdapter myTripsAdapter = new MyTripsAdapter(getContext(), tripsArray);
+                    MyTripsAdapter myTripsAdapter = new MyTripsAdapter(MyTripsFragment.this.activity, tripsArray);
                     myTripsAdapter.notifyDataSetChanged();
                     tripsListView.setAdapter(myTripsAdapter);
                     tripsListView.setVisibility(View.VISIBLE);

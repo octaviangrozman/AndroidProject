@@ -1,8 +1,10 @@
 package com.example.octav.androidproject;
 
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.octav.androidproject.adapters.MyTripsAdapter;
@@ -34,6 +37,8 @@ public class MainActivity extends BaseActivity implements
     ListView tripsList;
     // Fragments
     FragmentTransaction ft;
+    Fragment currentFragment;
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -50,6 +55,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar, menu);
+        ((TextView) findViewById(R.id.action_current_user)).setText(FirebaseAuth.getInstance().getCurrentUser().getEmail());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -60,12 +66,15 @@ public class MainActivity extends BaseActivity implements
 
         Toolbar appToolbar = (Toolbar) findViewById(R.id.app_toolbar);
         setSupportActionBar(appToolbar);
-
         db = FirebaseDatabase.getInstance();
-        ft = getSupportFragmentManager().beginTransaction();
-        HomeFragment homeFragment = new HomeFragment();
-        ft.replace(R.id.fragment_container, homeFragment);
-        ft.commit();
+
+        if(savedInstanceState == null){
+            this.currentFragment = HomeFragment.newInstance();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, currentFragment);
+            ft.commit();
+        }
+
         addBottomNavigation();
     }
 
@@ -79,31 +88,20 @@ public class MainActivity extends BaseActivity implements
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.action_trips:
-                                HomeFragment homeFragment = new HomeFragment();
-                                ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.fragment_container, homeFragment);
-                                ft.addToBackStack("home").commit();
+                                HomeFragment homeFragment = HomeFragment.newInstance();
+                                goToFragment(HomeFragment.newInstance(), "home");
                                 return true;
 
                             case R.id.action_my_trips:
-                                MyTripsFragment myTripsFragment = new MyTripsFragment();
-                                ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.fragment_container, myTripsFragment);
-                                ft.addToBackStack("myTrips").commit();
+                                goToFragment(MyTripsFragment.newInstance(), "myTrips");
                                 return true;
 
                             case R.id.action_search:
-                                SearchFragment searchFragment = new SearchFragment();
-                                ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.fragment_container, searchFragment);
-                                ft.addToBackStack("search").commit();
+                                goToFragment(SearchFragment.newInstance(), "search");
                                 return true;
 
                             case R.id.action_profile:
-                                ProfileFragment profileFragment = new ProfileFragment();
-                                ft = getSupportFragmentManager().beginTransaction();
-                                ft.replace(R.id.fragment_container, profileFragment);
-                                ft.addToBackStack("profile").commit();
+                                goToFragment(new ProfileFragment(), "profile");
                                 return true;
                         }
                         return false;
@@ -113,18 +111,12 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void goToAddTripFragment() {
-        AddTripFragment addTripFragment = AddTripFragment.newInstance();
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, addTripFragment);
-        ft.addToBackStack("addTrip").commit();
+        goToFragment(AddTripFragment.newInstance(), "addTrip");
     }
 
     @Override
     public void goToEditTripFragment(Trip trip) {
-        EditTripFragment editTripFragment = EditTripFragment.newInstance(trip);
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, editTripFragment);
-        ft.addToBackStack("editTrip").commit();
+        goToFragment(EditTripFragment.newInstance(trip), "editTrip");
     }
 
     @Override
@@ -139,10 +131,14 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void goToTripFragment(Trip trip) {
-        TripFragment tripFragment = TripFragment.newInstance(trip);
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, tripFragment);
-        ft.addToBackStack("trip").commit();
+        goToFragment(TripFragment.newInstance(trip), "trips");
     }
 
+    private void goToFragment(Fragment fragment, String contextString){
+        currentFragment = fragment;
+        ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, fragment);
+        if(contextString != null)
+            ft.addToBackStack(contextString).commit();
+    }
 }
