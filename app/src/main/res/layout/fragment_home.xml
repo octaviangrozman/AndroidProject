@@ -28,7 +28,7 @@
             android:textAlignment="center"
             android:textSize="20dp"
             android:gravity="center"
-            android:text="No trips found. Try again."
+            android:text="@string/no_trips_found_try_again"
             android:id="@+id/noDataText"
             android:visibility="gone"/>
 

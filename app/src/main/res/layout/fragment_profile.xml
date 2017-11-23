@@ -13,14 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/userEmail"
-            android:text="Email: "
+            android:text="@string/userEmail"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/userTripCount"
-            android:text="Trips created: "/>
+            />
 
 
     </LinearLayout>

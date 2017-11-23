@@ -64,13 +64,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Route"
+                android:text="@string/route"
                 android:id="@+id/route"/>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Clear"
+                android:text="@string/clear"
                 android:id="@+id/clear"/>
 
         </LinearLayout>
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
-                android:text="Complexity"/>
+                android:text="@string/complexity"/>
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
             android:background="#9d30be47"
             android:textColor="#fff"
             android:textSize="22dp"
-            android:text="Create" />
+            android:text="@string/create" />
 
     </LinearLayout>
 

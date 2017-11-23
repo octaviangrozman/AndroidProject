@@ -43,4 +43,24 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="current_user">Current user</string>
+    <string name="userEmail">Email:</string>
+    <string name="loading_trips">Loading trips...</string>
+    <string name="no_trips_found_try_again">No trips found. Try again.</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="route">Route</string>
+    <string name="clear">Clear</string>
+    <string name="complexity">Complexity</string>
+    <string name="create">Create</string>
+    <string name="searching">Searching...</string>
+    <string name="duration">Duration:</string>
+    <string name="stops">Stops:</string>
+    <string name="trip_complexity">Complexity:</string>
+    <string name="trip_description">Description:</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="title">Title</string>
+    <string name="item_1">Item 1</string>
+    <string name="item_2">Item 2</string>
+    <string name="item_3">Item 3</string>
 </resources>

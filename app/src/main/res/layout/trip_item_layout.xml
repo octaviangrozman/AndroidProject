@@ -20,7 +20,7 @@
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Title"
+                android:text="@string/title"
                 android:textAlignment="center"
                 android:textSize="18dp" />
             <View
@@ -36,7 +36,6 @@
                 android:gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="4"
                 android:textAlignment="center"
                 android:textSize="18dp" />
         </LinearLayout>

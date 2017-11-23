@@ -27,18 +27,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Sign Up"
+        android:text="@string/sign_up"
         android:id="@+id/submit"
         android:layout_gravity="center"
          />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign In"
-        android:id="@+id/signIn"
-        android:layout_gravity="center"
-         />
 
 
 </LinearLayout>

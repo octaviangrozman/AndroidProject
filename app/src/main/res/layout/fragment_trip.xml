@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Duration: "
+                android:text="@string/duration"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -56,27 +56,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/tripDuration"
                 android:textSize="20sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/startPointLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Stops: "
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:id="@+id/tripStartPoint"/>
 
         </LinearLayout>
 
@@ -90,7 +69,7 @@
                 android:id="@+id/complexityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Complexity: "
+                android:text="@string/trip_complexity"
                 android:layout_marginStart="8dp"
                 android:textSize="20sp"
                 android:textStyle="bold"/>
@@ -112,7 +91,7 @@
                 android:id="@+id/descriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description: "
+                android:text="@string/trip_description"
                 android:layout_marginStart="8dp"
                 android:textSize="20sp"
                 android:textStyle="bold"/>

@@ -13,7 +13,7 @@
         android:layout_width="120dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Title"
+        android:text="@string/title"
         android:textAlignment="center"
         android:textSize="18dp" />
 
@@ -30,7 +30,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Edit"
+            android:text="@string/edit"
             android:id="@+id/edit"
             android:layout_weight="1"
             android:onClick="editBtnClickHandler"
@@ -38,7 +38,7 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Delete"
+            android:text="@string/delete"
             android:layout_weight="0.9"
             android:id="@+id/delete"
             android:onClick="deleteBtnClickHandler"
