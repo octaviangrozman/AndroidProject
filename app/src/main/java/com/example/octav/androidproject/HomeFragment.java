@@ -1,5 +1,6 @@
 package com.example.octav.androidproject;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -40,6 +41,8 @@ public class HomeFragment extends Fragment {
     private TextView noDataText;
 
     private OnFragmentInteractionListener mListener;
+
+    private Activity activity;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -99,20 +102,15 @@ public class HomeFragment extends Fragment {
                 mListener.goToTripFragment(trip);
             }
         });
-        addTripButton = (FloatingActionButton) getView().findViewById(R.id.addTripButton);
-        addTripButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                mListener.goToAddTripFragment();
-            }
-        });
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        fetchTrips();
+        if(getActivity() != null) {
+            this.activity = getActivity();
+            fetchTrips();
+        }
     }
 
     public void fetchTrips() {
@@ -140,7 +138,7 @@ public class HomeFragment extends Fragment {
                 }
                 setLoading(false);
                 if (tripsArray.size() > 0) {
-                    TripsAdapter tripsAdapter = new TripsAdapter(getContext(), tripsArray);
+                    TripsAdapter tripsAdapter = new TripsAdapter(HomeFragment.this.activity, tripsArray);
                     tripsAdapter.notifyDataSetChanged();
                     tripsListView.setAdapter(tripsAdapter);
                     tripsListView.setVisibility(View.VISIBLE);

@@ -23,10 +23,11 @@ import java.util.ArrayList;
 public class MyTripsAdapter extends ArrayAdapter<Trip> {
 
     private OnAdapterInteractionListener mListener;
+    private Context context;
 
     public MyTripsAdapter(Context context, ArrayList<Trip> data) {
         super(context, 0, data);
-
+        this.context = context;
         if (context instanceof OnAdapterInteractionListener) {
             mListener = (OnAdapterInteractionListener) context;
         } else {
@@ -37,7 +38,6 @@ public class MyTripsAdapter extends ArrayAdapter<Trip> {
 
     public static class ViewHolder {
         TextView title;
-        TextView complexity;
         Button editBtn;
         Button deleteBtn;
     }
@@ -47,12 +47,11 @@ public class MyTripsAdapter extends ArrayAdapter<Trip> {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.my_trip_item_layout, parent, false);
+            convertView = LayoutInflater.from(this.context).inflate(R.layout.my_trip_item_layout, parent, false);
 
             viewHolder.title = (TextView) convertView.findViewById(R.id.tripTitle);
             viewHolder.editBtn = (Button) convertView.findViewById(R.id.edit);
             viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.delete);
-            //viewHolder.complexity = (TextView) convertView.findViewById(R.id.tripComplexity);
 
             convertView.setTag(viewHolder);
         } else {

@@ -8,14 +8,14 @@
         android:title="@string/text_home"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/action_my_trips"
-        android:icon="@drawable/ic_directions_bike_black_24dp"
-        android:title="@string/text_my_trips"
-        app:showAsAction="ifRoom|withText" />
-    <item
         android:id="@+id/action_search"
         android:icon="@drawable/ic_search_black_24dp"
         android:title="@string/text_search"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/action_my_trips"
+        android:icon="@drawable/ic_directions_bike_black_24dp"
+        android:title="@string/text_my_trips"
         app:showAsAction="ifRoom|withText" />
     <item
         android:id="@+id/action_profile"

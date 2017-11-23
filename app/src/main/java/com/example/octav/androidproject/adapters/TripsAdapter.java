@@ -18,8 +18,12 @@ import java.util.ArrayList;
  */
 
 public class TripsAdapter extends ArrayAdapter<Trip> {
+
+    private Context context;
+
     public TripsAdapter(Context context, ArrayList<Trip> data) {
         super(context, 0, data);
+        this.context = context;
         Log.i("as", "created");
     }
 
@@ -34,7 +38,7 @@ public class TripsAdapter extends ArrayAdapter<Trip> {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.trip_item_layout, parent, false);
+            convertView = LayoutInflater.from(this.context).inflate(R.layout.trip_item_layout, parent, false);
 
             viewHolder.title = (TextView) convertView.findViewById(R.id.tripTitle);
             viewHolder.complexity = (TextView) convertView.findViewById(R.id.tripComplexity);
