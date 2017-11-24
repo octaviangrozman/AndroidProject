@@ -114,4 +114,8 @@ public class SignInActivity extends AppCompatActivity {
         if (mAuthListener != null)
             mAuth.removeAuthStateListener(mAuthListener);
     }
+
+    public void goToSignUp(View view) {
+        startActivity(new Intent(this, SignUpActivity.class));
+    }
 }

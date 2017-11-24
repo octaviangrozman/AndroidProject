@@ -105,4 +105,6 @@ public class SignUpActivity extends AppCompatActivity {
         if (mAuthListener != null)
             mAuth.removeAuthStateListener(mAuthListener);
     }
+
+
 }
