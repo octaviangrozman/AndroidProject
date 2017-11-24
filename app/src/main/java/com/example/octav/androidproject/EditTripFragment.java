@@ -187,7 +187,14 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
                     return;
                 }
 
+                String userUid = mAuth.getCurrentUser().getUid();
+
+                if (myPoints.size() == 0) {
+                    route = tripParam.getRoute();
+                }
+
                 Trip trip = new Trip()
+                        .setUserUid(userUid)
                         .setTitle(title)
                         .setDescription(description)
                         .setDuration(duration)
@@ -208,18 +215,11 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
         routeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                LatLng origin = MarkerPoints.get(0);
-//                LatLng waypoint = MarkerPoints.get(1);
-//                LatLng dest = MarkerPoints.get(2);
-
-                // Getting URL to the Google Directions API
                 String url = getUrl(MarkerPoints);
                 Log.d("onMapClick", url.toString());
                 FetchUrl FetchUrl = new FetchUrl();
 
-                // Start downloading json data from Google Directions API
                 FetchUrl.execute(url);
-                //move map camera
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(MarkerPoints.get(0)));
                 mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
             }
@@ -266,67 +266,20 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onMapClick(LatLng point) {
 
-                // Already two locations
-//                if (MarkerPoints.size() > 2) {
-//                    MarkerPoints.clear();
-//                    mMap.clear();
-//                }
-
-                // Adding new item to the ArrayList
                 MarkerPoints.add(point);
 
-                // Creating MarkerOptions
                 MarkerOptions options = new MarkerOptions();
 
-                // Setting the position of the marker
                 options.position(point);
 
-                /**
-                 * For the start location, the color of marker is GREEN and
-                 * for the end location, the color of marker is RED.
-                 */
-                //if (MarkerPoints.size() == 1) {
                 options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-//                } else if (MarkerPoints.size() == 2) {
-//                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-//
-//                }
-//                else if(MarkerPoints.size() == 3){
-//                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-//                }
-
 
                 // Add new marker to the Google Map Android API V2
                 mMap.addMarker(options);
 
-                // Checks, whether start and end locations are captured
-//                if (MarkerPoints.size() >= 3) {
-//                    LatLng origin = MarkerPoints.get(0);
-//                    LatLng waypoint = MarkerPoints.get(1);
-//                    LatLng dest = MarkerPoints.get(2);
-//
-//                    // Getting URL to the Google Directions API
-//                    String url = getUrl(origin, dest, waypoint);
-//                    Log.d("onMapClick", url.toString());
-//                    FetchUrl FetchUrl = new FetchUrl();
-//
-//                    // Start downloading json data from Google Directions API
-//                    FetchUrl.execute(url);
-//                    //move map camera
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-//                    mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-//                }
-
             }
         });
-        // Add a marker in Sydney and move the camera
-//        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
-
-        // Position the map's camera near Alice Springs in the center of Australia,
-        // and set the zoom factor so most of Australia shows on the screen.
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(-35.016, 143.321), 8));
 
 
@@ -350,9 +303,6 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
                     .append("|");
         }
         waypointsStringBuilder.deleteCharAt(waypointsStringBuilder.length() - 1);
-        // Sensor enabled
-        //String sensor = "sensor=false";
-
         // Building the parameters to the web service
         String parameters = str_origin + "&" + str_dest + "&" + waypointsStringBuilder.toString();
         // Output format
@@ -508,6 +458,7 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
 
     private void initializeTripData() {
         mTitle.setText(tripParam.getTitle());
+        mComplexity.setSelection(tripParam.getComplexity());
         mHours.setText(String.valueOf(tripParam.getDuration() / 60));
         mMinutes.setText(String.valueOf(tripParam.getDuration() % 60));
         mDescription.setText(tripParam.getDescription());

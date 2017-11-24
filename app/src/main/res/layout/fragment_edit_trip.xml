@@ -10,7 +10,6 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="30dp"
         tools:context="com.example.octav.androidproject.AddTripActivity">
 
         <EditText
@@ -98,7 +97,7 @@
                 android:text="@string/complexity"/>
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:prompt="@string/complexity_prompt"
                 android:entries="@array/complexity_levels"
