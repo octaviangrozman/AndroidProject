@@ -181,7 +181,6 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
                         Toast.makeText(getContext(), "Hours or Minutes have wrong format", Toast.LENGTH_LONG).show();
                         return;
                     }
-                    complexity = mComplexity.getSelectedItem().toString();
                 } catch (NullPointerException e) {
                     Toast.makeText(getContext(), "Some field are empty", Toast.LENGTH_LONG).show();
                     return;
@@ -198,7 +197,7 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
                         .setTitle(title)
                         .setDescription(description)
                         .setDuration(duration)
-                        .setComplexity(parseInt(complexity))
+                        .setComplexity(tripParam.getComplexity())
                         .setRoute(route);
 
                 tripRef.child(tripId).setValue(trip).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -207,8 +206,6 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
                         Toast.makeText(getContext(), "Your trip has been successfully updated!", Toast.LENGTH_LONG).show();
                     }
                 });
-
-                clearInputFields();
             }
         });
 
@@ -458,7 +455,6 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
 
     private void initializeTripData() {
         mTitle.setText(tripParam.getTitle());
-        mComplexity.setSelection(tripParam.getComplexity());
         mHours.setText(String.valueOf(tripParam.getDuration() / 60));
         mMinutes.setText(String.valueOf(tripParam.getDuration() % 60));
         mDescription.setText(tripParam.getDescription());
@@ -466,7 +462,6 @@ public class EditTripFragment extends Fragment implements OnMapReadyCallback {
 
     private void clearInputFields(){
         mTitle.setText("");
-        mComplexity.setSelection(0);
         mHours.setText("");
         mMinutes.setText("");
         mDescription.setText("");

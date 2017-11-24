@@ -5,7 +5,7 @@
     android:id="@+id/frame_home"
     tools:context="com.example.octav.androidproject.HomeFragment">
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -32,32 +32,35 @@
             android:id="@+id/noDataText"
             android:visibility="gone"/>
 
+        <View style="@style/Line"/>
         <ListView
             android:id="@+id/tripsList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="#666"
             android:dividerHeight="1dp"
+            android:headerDividersEnabled="true"
+            android:footerDividersEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+        <View style="@style/Line"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addTripButton"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_marginBottom="80dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
             android:clickable="true"
             android:focusable="true"
             app:backgroundTint="@android:color/holo_red_light"
             app:fabSize="mini"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
             app:rippleColor="@android:color/black"
             app:srcCompat="@android:drawable/ic_menu_add" />
 
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 
 </FrameLayout>

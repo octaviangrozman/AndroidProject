@@ -43,7 +43,7 @@ public class SignInActivity extends AppCompatActivity {
 
 
         mAuth = FirebaseAuth.getInstance();
-        mAuth.signOut();
+//        mAuth.signOut();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
             @Override

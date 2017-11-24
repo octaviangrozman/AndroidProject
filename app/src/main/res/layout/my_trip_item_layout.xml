@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:orientation="horizontal">
 
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#666" />
     <TextView
         android:gravity="center"
         android:id="@+id/tripTitle"
@@ -44,5 +49,9 @@
             android:onClick="deleteBtnClickHandler"
             />
     </LinearLayout>
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#666" />
 
 </LinearLayout>
