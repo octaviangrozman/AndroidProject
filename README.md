@@ -9,4 +9,4 @@ Each ‘trip’ will have all the information you need to try it out by yourself
 Find yourself a trip, ask the guy who created if you have specific question, comment, and rate the trip after you have tried it out, create your own collection of favorite trips, and finally, tell you own story to other travelers! 
 
 
-The BikeTrip's code is built in Android and it is intended to be used as a mobile application. The application gives is a multi-user experience. All the data is persistent thanks to the Firebase real-time database. The application implements a convenient map interface so that you can easily share your routes.
+The BikeTrip's code is built in Android and it is intended to be used as a mobile application. The application gives us a multi-user experience. All the data is persistent thanks to the Firebase real-time database. The application implements a convenient map interface so that you can easily share your routes.
